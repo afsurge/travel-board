@@ -5,6 +5,20 @@
         <link rel="stylesheet" href="/styles.css" />
     </head>
     <body>
+        <div id="main">
+            <div id="titleHead">
+                <h1>Abrar's Image Board</h1>
+            </div>
+            <div id="uploadBar">
+                <h2>Upload Bar goes here</h2>
+            </div>
+            <div id="container">
+                <div class="allImages" v-for="image in images" :key="image.id">
+                    <img class="theImage" :src="image.url" :alt="image.title" />
+                    <p class="theTitle">{{image.title}}</p>
+                </div>
+            </div>
+        </div>
         <script src="/js/vue.js"></script>
         <script src="/js/axios.min.js"></script>
         <script src="/js/script.js"></script>

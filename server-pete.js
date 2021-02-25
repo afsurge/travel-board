@@ -12,7 +12,7 @@ const cities = [
     {
         id: 2,
         name: "Dhaka",
-        country: "Bangaldesh",
+        country: "Bangladesh",
     },
     {
         id: 3,
