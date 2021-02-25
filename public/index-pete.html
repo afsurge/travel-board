@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Image Board</title>
+        <link rel="stylesheet" href="/styles.css" />
+    </head>
+    <body>
+        <h1>Is this working?</h1>
+        <div id="main">
+            <h2>I really like {{name}}</h2>
+            <h2>Maths! 2 * 2 = {{2*2}}</h2>
+            <h2>Capitalize {{name.toUpperCase()}}</h2>
+            <h2 v-if="seen">Can you see me?</h2>
+            <h2 v-else>I am the else</h2>
+            <ul>
+                <li
+                    v-for="city in cities"
+                    :key="city.id"
+                    v-on:click="handleClick(city.name)"
+                >
+                    Hello from {{city.name}}, {{city.country}}
+                </li>
+                <!-- @click shorthand for v-on:click -->
+            </ul>
+        </div>
+        <script src="/js/vue.js"></script>
+        <script src="/js/axios.min.js"></script>
+        <script src="/js/script.js"></script>
+    </body>
+</html>
