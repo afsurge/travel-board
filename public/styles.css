@@ -42,9 +42,9 @@ body {
     height: 5vh;
 }
 
-/* #uploadBar form {
+#uploadBar form {
     display: flex;
     flex-wrap: wrap;
     /* justify-content: space-evenly; */
     width: 100%;
-} */
+}
