@@ -10,11 +10,42 @@
                 <h1>Abrar's Image Board</h1>
             </div>
             <div id="uploadBar">
-                <h2>Upload Bar goes here</h2>
+                <!-- <h2>Upload Bar goes here</h2> -->
+                <form action="">
+                    <input
+                        v-model="title"
+                        type="text"
+                        name="title"
+                        placeholder="title"
+                    />
+                    <input
+                        v-model="description"
+                        type="text"
+                        name="description"
+                        placeholder="description"
+                    />
+                    <input
+                        v-model="username"
+                        type="text"
+                        name="username"
+                        placeholder="username"
+                    />
+                    <input
+                        @change="handleChange"
+                        type="file"
+                        name="file"
+                        accept="image/*"
+                    />
+                    <button @click.prevent="handleClick">UPLOAD</button>
+                </form>
             </div>
             <div id="container">
                 <div class="allImages" v-for="image in images" :key="image.id">
-                    <img class="theImage" :src="image.url" :alt="image.title" />
+                    <img
+                        class="theImage"
+                        v-bind:src="image.url"
+                        v-bind:alt="image.title"
+                    />
                     <p class="theTitle">{{image.title}}</p>
                 </div>
             </div>
