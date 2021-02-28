@@ -5,6 +5,7 @@ const multer = require("multer");
 const uidSafe = require("uid-safe");
 const path = require("path");
 const s3 = require("./s3");
+const config = require("./config.json");
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -38,25 +39,35 @@ app.get("/images", (req, res) => {
 });
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
-    console.log("hit the post route....");
-    console.log("req.file: ", req.file);
-    console.log("req.body: ", req.body);
+    console.log("Server POST route hit");
+    // console.log("req.file: ", req.file);
+    // console.log("req.body: ", req.body);
     // insert into images table the uploaded file info
     // title, description, username, fullUrl (aws+filename)
     // aws link included in config.json (s3Url)
-    // response json with with object containing all above info
+    // response json with object containing all above info
     // back to script in axios then() for next step
     // replace if-else below with db query -> then response -> catch error
-    // include success prop again (?)
-    if (req.file) {
-        res.json({
-            success: true,
+
+    const { title, description, username } = req.body;
+    const { filename } = req.file;
+    const fullUrl = config.s3Url + filename;
+    db.addImage(fullUrl, username, title, description)
+        .then(() => {
+            res.json({
+                title: title,
+                description: description,
+                username: username,
+                url: fullUrl,
+                success: true,
+            });
+        })
+        .catch((err) => {
+            console.log("Error in db.addImage:", err.message);
+            res.json({
+                success: false,
+            });
         });
-    } else {
-        res.json({
-            success: false,
-        });
-    }
 });
 
 app.listen(8080, () => console.log("🖼️  IB server (port: 8080) online..."));

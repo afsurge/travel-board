@@ -9,11 +9,20 @@ body {
     background-color: slategray;
 }
 
+#titleHead {
+    display: flex;
+    height: 10vh;
+    justify-content: center;
+    align-items: center;
+    background-color: navy;
+    color: whitesmoke;
+}
+
 #container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* justify-content: space-around; */
+    justify-content: space-evenly;
 }
 
 .allImages {
@@ -39,7 +48,8 @@ body {
     /* justify-content: space-evenly; */
     align-items: center;
     background-color: skyblue;
-    height: 5vh;
+    height: 10vh;
+    border: 5px solid navy;
 }
 
 #uploadBar form {

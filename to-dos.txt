@@ -1,0 +1,6 @@
+Part1 Done
+Part2 Done
+
+Q: {success: true|false} in json response from server to Vue?
+Q: ORDER BY query instead of unshift images? Redirect /images? -> reverse() response.data before passing to self.image (script /get)
+Q: continue storing locally in /uploads folder?
