@@ -1,6 +1,8 @@
-Part1 Done
-Part2 Done
+Part1 Image Board/Vue.js: Done
+Part2 Image upload/S3: Done
+Part3 Vue components: Done
 
 Q: {success: true|false} in json response from server to Vue?
-Q: ORDER BY query instead of unshift images? Redirect /images? -> reverse() response.data before passing to self.image (script /get)
-Q: continue storing locally in /uploads folder?
+x Q: ORDER BY query instead of unshift images? -> reverse() response.data before passing to self.image (script /get) -> ORDER BY after checking Part4
+x Q: continue storing locally in /uploads folder? -> Merle: can remove after upload to s3, use "fs.unlink(path,()=>{});" in s3 (commented now/David)
+x Q: reset all images uploaded? remove from tables, remove from s3? -> Merle: remove from tables, link to delete from s3 -> saved in slack

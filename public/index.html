@@ -10,8 +10,7 @@
                 <h1>Abrar @ImageBoard</h1>
             </div>
             <div id="uploadBar">
-                <!-- <h2>Upload Bar goes here</h2> -->
-                <form action="">
+                <form id="uploadForm" action="">
                     <input
                         v-model="title"
                         type="text"
@@ -36,11 +35,25 @@
                         name="file"
                         accept="image/*"
                     />
-                    <button @click.prevent="handleClick">UPLOAD</button>
+                    <button id="uploadButton" @click.prevent="handleClick">
+                        UPLOAD
+                    </button>
                 </form>
             </div>
+            <!-- component for showing image details -->
+            <component-image-details
+                v-if="imageSelected"
+                v-bind:image-id="imageSelected"
+                @close="closeComponent"
+            ></component-image-details>
+            <!-- component for showing image details -->
             <div id="container">
-                <div class="allImages" v-for="image in images" :key="image.id">
+                <div
+                    class="allImages"
+                    v-for="image in images"
+                    v-bind:key="image.id"
+                    @click="selectImage(image.id)"
+                >
                     <img
                         class="theImage"
                         v-bind:src="image.url"
@@ -50,6 +63,24 @@
                 </div>
             </div>
         </div>
+        <script id="imageDetailsTemplate" type="text/x-template">
+            <div id="detailsPlusOverlay">
+                <div id="overlayImages" @click="closeDetails"></div>
+                <div id="detailsContainer">
+                    <div id="imageBody">
+                        <img id="selectedImage" v-bind:src="url" v-bind:alt="title">
+                    </div>
+                    <div id="detailsBody">
+                        <img id="close-details" src="/x-image.png" alt="close details" @click="closeDetails">
+                        <p>TITLE {{title}}</p>
+                        <p>DESCRIPTION <br>{{description}}</p>
+                        <p>UPLOADED BY {{username}}</p>
+                        <p>UPLOADED ON {{created_at.slice(0,10)}}</p>
+                        <p>UPLOADED AT {{created_at.slice(11,16)}}</p>
+                    </div>
+                </div>
+            </div>
+        </script>
         <script src="/js/vue.js"></script>
         <script src="/js/axios.min.js"></script>
         <script src="/js/script.js"></script>

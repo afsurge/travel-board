@@ -1,5 +1,51 @@
 // console.log("script linked!");
 
+Vue.component("component-image-details", {
+    template: "#imageDetailsTemplate",
+    data: function () {
+        return {
+            url: "",
+            title: "",
+            description: "",
+            username: "",
+            created_at: "",
+        };
+    },
+
+    props: ["imageId"],
+
+    mounted: function () {
+        console.log("this.imageId in component:", this.imageId);
+        var self = this;
+        axios
+            .get("/images/" + this.imageId)
+            .then(function (response) {
+                console.log(
+                    "Response received from server for selected image:",
+                    response.data[0]
+                );
+                // console.log(self);
+                self.url = response.data[0].url;
+                self.title = response.data[0].title;
+                self.description = response.data[0].description;
+                self.username = response.data[0].username;
+                self.created_at = response.data[0].created_at;
+            })
+            .catch(function (err) {
+                console.log(
+                    "Error getting response for selected image:",
+                    err.message
+                );
+            });
+    },
+
+    methods: {
+        closeDetails: function () {
+            this.$emit("close");
+        },
+    },
+});
+
 new Vue({
     el: "#main",
     data: {
@@ -8,6 +54,7 @@ new Vue({
         description: "",
         username: "",
         file: null,
+        imageSelected: null,
     },
     mounted: function () {
         var self = this;
@@ -15,9 +62,11 @@ new Vue({
         axios
             .get("/images")
             .then(function (response) {
-                self.images = response.data.reverse();
+                self.images = response.data;
+                // self.images = response.data.reverse();
                 // reverse() to show last upload at first
-                // console.log(self.images);
+                // use if not ordered in query already (DESC)
+                console.log(self.images);
             })
             .catch(function (err) {
                 console.log("Error from GET req:", err.message);
@@ -61,6 +110,16 @@ new Vue({
                 .catch(function (err) {
                     console.log("Error from POST req:", err.message);
                 });
+        },
+
+        selectImage: function (id) {
+            console.log("User selected an image");
+            console.log("Image id clicked in main Vue instance:", id);
+            this.imageSelected = id;
+        },
+
+        closeComponent: function () {
+            this.imageSelected = null;
         },
     },
 });

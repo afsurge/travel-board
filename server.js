@@ -34,7 +34,20 @@ app.get("/images", (req, res) => {
             res.json(rows);
         })
         .catch((err) => {
-            console.log("Error:", err.message);
+            console.log("Error getting all images:", err.message);
+        });
+});
+
+app.get("/images/:id", (req, res) => {
+    const selectedId = req.params.id;
+    console.log("Selected id received from script:", selectedId);
+    db.getSelImage(selectedId)
+        .then(({ rows }) => {
+            // console.log(rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("Error getting selected image details:", err.message);
         });
 });
 

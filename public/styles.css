@@ -45,7 +45,6 @@ body {
 
 #uploadBar {
     display: flex;
-    /* justify-content: space-evenly; */
     align-items: center;
     background-color: skyblue;
     height: 10vh;
@@ -55,6 +54,72 @@ body {
 #uploadBar form {
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: space-evenly; */
+    justify-content: center;
     width: 100%;
+}
+
+#detailsContainer {
+    display: flex;
+    background-color: black;
+    color: black;
+    position: fixed;
+    left: 10vw;
+    bottom: 10vh;
+    width: 80vw;
+    height: 80vh;
+    border: 2px solid navy;
+    z-index: 2;
+}
+
+#selectedImage {
+    width: 100%;
+    object-fit: contain;
+}
+
+#imageBody,
+#detailsBody {
+    display: flex;
+}
+
+#imageBody {
+    width: 60%;
+}
+
+#detailsBody {
+    flex-direction: column;
+    width: 40%;
+    background-color: white;
+}
+
+#detailsBody p {
+    font-size: 1.5em;
+    margin: 10px;
+}
+
+#close-details {
+    height: 30px;
+    width: 30px;
+    background-color: white;
+    align-self: flex-end;
+    margin: 10px;
+}
+
+#overlayImages {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    background-blend-mode: overlay;
+}
+
+#uploadForm * {
+    margin: 10px;
+    border: 2px solid navy;
+    font-size: 1.2em;
+}
+
+#uploadButton {
+    background-color: navy;
+    color: white;
 }
