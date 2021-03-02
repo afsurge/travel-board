@@ -76,11 +76,28 @@
                     <div id="detailsBody">
                         <img id="close-details" src="/x-image.png" alt="close details" @click="closeDetails">
                         <p>TITLE {{title}}</p>
-                        <p>DESCRIPTION <br>{{description}}</p>
-                        <p>UPLOADED BY {{username}}</p>
-                        <p>UPLOADED ON {{created_at.slice(0,10)}}</p>
-                        <p>UPLOADED AT {{created_at.slice(11,16)}}</p>
+                        <p>DESCRIPTION {{description}}</p>
+                        <p>UPLOAD BY {{username}}</p>
+                        <p>DATE {{created_at.slice(0,10)}}</p>
+                        <p>TIME {{created_at.slice(11,16)}}</p>
+                        <!-- component for comments within details component HTML-->
+                        <component-comments v-bind:image-id="imageId"></component-comments>
+                        <!-- component for comments within details component HTML-->
                     </div>
+                </div>
+            </div>
+        </script>
+        <script id="commentsTemplate" type="text/x-template">
+            <div id="commentsContainer">
+                <div id="addCommentForm">
+                    <p>ADD A COMMENT</p>
+                    <input v-model="username" type="text" name="username" placeholder="name">
+                    <input v-model="comment" type="text" name="comment" placeholder="comment here">
+                    <button id="addCommentButton" @click.prevent="addComment">POST</button>
+                </div>
+                <div class="allComments" v-for="comment in comments" id="allComments">
+                    <p>{{comment.username}} commented:</p>
+                    <p>{{comment.comment}}</p>
                 </div>
             </div>
         </script>

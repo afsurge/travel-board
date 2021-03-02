@@ -1,5 +1,53 @@
 // console.log("script linked!");
 
+Vue.component("component-comments", {
+    template: "#commentsTemplate",
+    data: function () {
+        return { comments: [], username: "", comment: "" };
+    },
+    props: ["imageId"],
+    mounted: function () {
+        console.log("this.imageId in comments component:", this.imageId);
+        // console.log("Testing comments component mount!");
+        var self = this;
+        axios
+            .get("/get-comments/" + this.imageId)
+            .then(function (response) {
+                console.log("Response of comments from server:", response.data);
+                self.comments = response.data;
+            })
+            .catch(function (err) {
+                console.log(
+                    "Error in getting comments from server:",
+                    err.message
+                );
+            });
+    },
+    methods: {
+        addComment: function () {
+            console.log("id of image to add comment:", this.imageId);
+            // console.log("User:", this.username);
+            // console.log("Comment:", this.comment);
+            var self = this;
+            var fullComment = {
+                username: this.username,
+                comment: this.comment,
+                image_id: this.imageId,
+            };
+            axios
+                .post("/comment", fullComment)
+                .then(function (response) {
+                    self.comments.unshift(response.data);
+                    self.username = "";
+                    self.comment = "";
+                })
+                .catch(function (err) {
+                    console.log("Error in getting all comments:", err.message);
+                });
+        },
+    },
+});
+
 Vue.component("component-image-details", {
     template: "#imageDetailsTemplate",
     data: function () {
@@ -15,15 +63,15 @@ Vue.component("component-image-details", {
     props: ["imageId"],
 
     mounted: function () {
-        console.log("this.imageId in component:", this.imageId);
+        console.log("this.imageId in modal component:", this.imageId);
         var self = this;
         axios
             .get("/images/" + this.imageId)
             .then(function (response) {
-                console.log(
-                    "Response received from server for selected image:",
-                    response.data[0]
-                );
+                // console.log(
+                //     "Response received from server for selected image:",
+                //     response.data[0]
+                // );
                 // console.log(self);
                 self.url = response.data[0].url;
                 self.title = response.data[0].title;
@@ -114,7 +162,7 @@ new Vue({
         },
 
         selectImage: function (id) {
-            console.log("User selected an image");
+            // console.log("User selected an image");
             console.log("Image id clicked in main Vue instance:", id);
             this.imageSelected = id;
         },
@@ -129,23 +177,28 @@ new Vue({
             const lowestId = this.images[this.images.length - 1].id;
             console.log("ID of last image on screen:", lowestId);
             var self = this;
-            axios.get("/more/" + lowestId).then((response) => {
-                console.log("Response for more images:", response.data);
-                var imagesWithMore = self.images.concat(response.data);
-                // for (var i in response.data) {
-                //     console.log(response.data[i]);
-                //     self.images.push(response.data[i]);
-                // }
-                self.images = imagesWithMore;
-                console.log(self.images);
-                if (
-                    self.images[self.images.length - 1].id ==
-                    response.data[0].lowestId
-                ) {
-                    self.lastOnScreen = true;
-                    console.log("All images are shown on screen!");
-                }
-            });
+            axios
+                .get("/more/" + lowestId)
+                .then((response) => {
+                    console.log("Response for more images:", response.data);
+                    var imagesWithMore = self.images.concat(response.data);
+                    // can use for-loop for above also
+                    self.images = imagesWithMore;
+                    console.log(self.images);
+                    if (
+                        self.images[self.images.length - 1].id ==
+                        response.data[0].lowestId
+                    ) {
+                        self.lastOnScreen = true;
+                        console.log("All images are shown on screen!");
+                    }
+                })
+                .catch((err) => {
+                    console.log(
+                        "Error getting more images in script:",
+                        err.message
+                    );
+                });
         },
     },
 });

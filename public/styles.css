@@ -28,6 +28,8 @@ body {
 .allImages {
     border: 2px solid navy;
     margin: 10px;
+    background-color: navy;
+    color: white;
 }
 
 .theImage {
@@ -92,13 +94,14 @@ body {
 }
 
 #detailsBody p {
-    font-size: 1.5em;
-    margin: 10px;
+    font-size: 0.9em;
+    margin: 5px;
 }
 
 #close-details {
-    height: 30px;
-    width: 30px;
+    position: absolute;
+    height: 20px;
+    width: 20px;
     background-color: white;
     align-self: flex-end;
     margin: 10px;
@@ -134,4 +137,9 @@ body {
 #moreContainer {
     text-align: center;
     margin: 10px;
+}
+
+#detailsBody .allComments p {
+    display: inline-block;
+    /* margin: 5px 0px; */
 }

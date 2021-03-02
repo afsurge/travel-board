@@ -26,6 +26,7 @@ const uploader = multer({
 });
 
 app.use(express.static("public"));
+app.use(express.json()); // solved issue of req.body in post /comment route!
 
 app.get("/images", (req, res) => {
     db.getImages()
@@ -92,7 +93,28 @@ app.get("/more/:lowestId", (req, res) => {
             res.json(rows);
         })
         .catch((err) => {
-            console.log("Error getting more images:", err.message);
+            console.log("Error getting more images in server:", err.message);
+        });
+});
+
+app.post("/comment", (req, res) => {
+    // console.log("Comment received:", req.body);
+    const { username, comment, image_id } = req.body;
+    db.addComment(username, comment, image_id).then(() => {
+        console.log("Comment added for image id:", image_id);
+        res.json({ username: username, comment: comment });
+    });
+});
+
+app.get("/get-comments/:id", (req, res) => {
+    const imageIdComments = req.params.id;
+    console.log("Request for comments of image id:", imageIdComments);
+    db.getComments(imageIdComments)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("Error getting comments:", err.message);
         });
 });
 
