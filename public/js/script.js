@@ -55,6 +55,7 @@ new Vue({
         username: "",
         file: null,
         imageSelected: null,
+        lastOnScreen: null,
     },
     mounted: function () {
         var self = this;
@@ -120,6 +121,31 @@ new Vue({
 
         closeComponent: function () {
             this.imageSelected = null;
+        },
+
+        getMoreImages: function () {
+            console.log("Give me MORE!");
+            console.log("All images on screen:", this.images);
+            const lowestId = this.images[this.images.length - 1].id;
+            console.log("ID of last image on screen:", lowestId);
+            var self = this;
+            axios.get("/more/" + lowestId).then((response) => {
+                console.log("Response for more images:", response.data);
+                var imagesWithMore = self.images.concat(response.data);
+                // for (var i in response.data) {
+                //     console.log(response.data[i]);
+                //     self.images.push(response.data[i]);
+                // }
+                self.images = imagesWithMore;
+                console.log(self.images);
+                if (
+                    self.images[self.images.length - 1].id ==
+                    response.data[0].lowestId
+                ) {
+                    self.lastOnScreen = true;
+                    console.log("All images are shown on screen!");
+                }
+            });
         },
     },
 });

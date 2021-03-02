@@ -38,19 +38,6 @@ app.get("/images", (req, res) => {
         });
 });
 
-app.get("/images/:id", (req, res) => {
-    const selectedId = req.params.id;
-    console.log("Selected id received from script:", selectedId);
-    db.getSelImage(selectedId)
-        .then(({ rows }) => {
-            // console.log(rows);
-            res.json(rows);
-        })
-        .catch((err) => {
-            console.log("Error getting selected image details:", err.message);
-        });
-});
-
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("Server POST route hit");
     // console.log("req.file: ", req.file);
@@ -80,6 +67,32 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
             res.json({
                 success: false,
             });
+        });
+});
+
+app.get("/images/:id", (req, res) => {
+    const selectedId = req.params.id;
+    console.log("Selected id received from script:", selectedId);
+    db.getSelImage(selectedId)
+        .then(({ rows }) => {
+            // console.log(rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("Error getting selected image details:", err.message);
+        });
+});
+
+app.get("/more/:lowestId", (req, res) => {
+    const lowestId = req.params.lowestId;
+    console.log("Lowest id received from script: ", lowestId);
+    db.getMoreImages(lowestId)
+        .then(({ rows }) => {
+            // console.log(rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("Error getting more images:", err.message);
         });
 });
 

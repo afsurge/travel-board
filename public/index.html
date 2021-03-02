@@ -62,6 +62,9 @@
                     <p class="theTitle">{{image.title}}</p>
                 </div>
             </div>
+            <div v-if="!lastOnScreen" id="moreContainer">
+                <button id="moreButton" @click="getMoreImages()">MORE</button>
+            </div>
         </div>
         <script id="imageDetailsTemplate" type="text/x-template">
             <div id="detailsPlusOverlay">
