@@ -43,6 +43,11 @@ body {
 
 .theTitle {
     text-align: center;
+    color: white;
+}
+
+#allImageLinks {
+    text-decoration: none;
 }
 
 #uploadBar {

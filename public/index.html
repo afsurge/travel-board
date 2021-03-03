@@ -48,18 +48,17 @@
             ></component-image-details>
             <!-- component for showing image details -->
             <div id="container">
-                <div
-                    class="allImages"
-                    v-for="image in images"
-                    v-bind:key="image.id"
-                    @click="selectImage(image.id)"
-                >
-                    <img
-                        class="theImage"
-                        v-bind:src="image.url"
-                        v-bind:alt="image.title"
-                    />
-                    <p class="theTitle">{{image.title}}</p>
+                <!-- @click="selectImage(image.id)" -->
+                <!-- v-bind:key="image.id" -->
+                <div class="allImages" v-for="image in images">
+                    <a id="allImageLinks" v-bind:href="'#' + image.id">
+                        <img
+                            class="theImage"
+                            v-bind:src="image.url"
+                            v-bind:alt="image.title"
+                        />
+                        <p class="theTitle">{{image.title}}</p>
+                    </a>
                 </div>
             </div>
             <div v-if="!lastOnScreen" id="moreContainer">

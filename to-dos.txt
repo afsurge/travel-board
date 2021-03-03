@@ -1,6 +1,15 @@
 Part1 Image Board/Vue.js: Done
 Part2 Image upload/S3: Done
 Part3 Vue components: Done
+Part4 Pagination/Comments: Done
+Part5 Client-side routing/Hash/Watchers: ...
+
+MISC:
+    - change color theme
+    - change topic: travels
+    - add new images
+    - design modal and comments
+    - bonus: previous/next, delete, notify users (if possible)
 
 Q: {success: true|false} in json response from server to Vue?
 x Q: ORDER BY query instead of unshift images? -> reverse() response.data before passing to self.image (script /get) -> ORDER BY after checking Part4

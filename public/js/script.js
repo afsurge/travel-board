@@ -1,4 +1,6 @@
-// console.log("script linked!");
+//////////////////////////////////
+//      Comments Component      //
+//////////////////////////////////
 
 Vue.component("component-comments", {
     template: "#commentsTemplate",
@@ -23,6 +25,25 @@ Vue.component("component-comments", {
                 );
             });
     },
+
+    watch: {
+        imageId: function () {
+            console.log("comments imageId changed to:", this.imageId);
+            var self = this;
+            axios
+                .get("/get-comments/" + this.imageId)
+                .then(function (response) {
+                    self.comments = response.data;
+                })
+                .catch(function (err) {
+                    console.log(
+                        "Error in getting rerouted comments from server:",
+                        err.message
+                    );
+                });
+        },
+    },
+
     methods: {
         addComment: function () {
             console.log("id of image to add comment:", this.imageId);
@@ -47,6 +68,10 @@ Vue.component("component-comments", {
         },
     },
 });
+
+//////////////////////////////////
+//        Modal Component       //
+//////////////////////////////////
 
 Vue.component("component-image-details", {
     template: "#imageDetailsTemplate",
@@ -87,12 +112,40 @@ Vue.component("component-image-details", {
             });
     },
 
+    watch: {
+        imageId: function () {
+            console.log("modal imageId changed to:", this.imageId);
+            var self = this;
+            axios
+                .get("/images/" + this.imageId)
+                .then(function (response) {
+                    self.url = response.data[0].url;
+                    self.title = response.data[0].title;
+                    self.description = response.data[0].description;
+                    self.username = response.data[0].username;
+                    self.created_at = response.data[0].created_at;
+                })
+                .catch(function (err) {
+                    console.log(
+                        "Error getting response for rerouted image:",
+                        err.message
+                    );
+                    // close modal if requested image (id) not present
+                    self.$emit("close");
+                });
+        },
+    },
+
     methods: {
         closeDetails: function () {
             this.$emit("close");
         },
     },
 });
+
+//////////////////////////////////
+//       Main Vue Instance      //
+//////////////////////////////////
 
 new Vue({
     el: "#main",
@@ -102,7 +155,7 @@ new Vue({
         description: "",
         username: "",
         file: null,
-        imageSelected: null,
+        imageSelected: location.hash.slice(1),
         lastOnScreen: null,
     },
     mounted: function () {
@@ -120,6 +173,10 @@ new Vue({
             .catch(function (err) {
                 console.log("Error from GET req:", err.message);
             });
+
+        window.addEventListener("hashchange", function () {
+            self.imageSelected = location.hash.slice(1);
+        });
     },
     methods: {
         handleChange: function (e) {
@@ -168,6 +225,9 @@ new Vue({
         },
 
         closeComponent: function () {
+            // below hash added to return to start page
+            // after requesting invalid image (#id)
+            location.hash = "";
             this.imageSelected = null;
         },
 

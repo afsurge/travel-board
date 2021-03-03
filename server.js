@@ -26,7 +26,7 @@ const uploader = multer({
 });
 
 app.use(express.static("public"));
-app.use(express.json()); // solved issue of req.body in post /comment route!
+app.use(express.json()); // solved issue of undefined req.body in post /comment route!
 
 app.get("/images", (req, res) => {
     db.getImages()
