@@ -70,7 +70,11 @@
                 <div id="overlayImages" @click="closeDetails"></div>
                 <div id="detailsContainer">
                     <div id="imageBody">
+                        <!-- <p id="prevImage" class="navImages"><</p> -->
+                        <a id="prevImage" class="navImages" :href="'#' + prevImgId" v-if="prevImgId"><<</a>
                         <img id="selectedImage" v-bind:src="url" v-bind:alt="title">
+                        <a id="nextImage" class="navImages" :href="'#' + nextImgId" v-if="nextImgId">>></a>
+                        <!-- <p id="nextImage" class="navImages">></p> -->
                     </div>
                     <div id="detailsBody">
                         <img id="close-details" src="/x-image.png" alt="close details" @click="closeDetails">

@@ -82,6 +82,8 @@ Vue.component("component-image-details", {
             description: "",
             username: "",
             created_at: "",
+            nextImgId: "",
+            prevImgId: "",
         };
     },
 
@@ -103,6 +105,10 @@ Vue.component("component-image-details", {
                 self.description = response.data[0].description;
                 self.username = response.data[0].username;
                 self.created_at = response.data[0].created_at;
+                self.nextImgId = response.data[0].nextImgId;
+                self.prevImgId = response.data[0].prevImgId;
+                // console.log("next image id:", response.data[0].nextImgId);
+                // console.log("previous image id:", response.data[0].prevImgId);
             })
             .catch(function (err) {
                 console.log(
@@ -124,6 +130,8 @@ Vue.component("component-image-details", {
                     self.description = response.data[0].description;
                     self.username = response.data[0].username;
                     self.created_at = response.data[0].created_at;
+                    self.nextImgId = response.data[0].nextImgId;
+                    self.prevImgId = response.data[0].prevImgId;
                 })
                 .catch(function (err) {
                     console.log(

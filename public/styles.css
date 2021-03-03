@@ -148,3 +148,17 @@ body {
     display: inline-block;
     /* margin: 5px 0px; */
 }
+
+.navImages {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 1.2em;
+    position: absolute;
+    height: 100%;
+    width: 3.5vw;
+    text-align: center;
+}
+
+#nextImage {
+    left: 44.5vw;
+}

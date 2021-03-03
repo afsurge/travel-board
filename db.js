@@ -21,9 +21,20 @@ module.exports.addImage = (url, username, title, description) => {
     return db.query(q, params);
 };
 
+// get selected image info plus next, previous image ids (subqueries)
 module.exports.getSelImage = (id) => {
     const q = `
-    SELECT *
+    SELECT *, (
+        SELECT id FROM images
+        WHERE id <$1
+        ORDER BY id DESC
+        LIMIT 1
+    ) AS "nextImgId", (
+        SELECT id FROM images
+        WHERE id >$1
+        ORDER BY id ASC
+        LIMIT 1
+    ) AS "prevImgId"
     FROM images
     WHERE id = $1
     `;
