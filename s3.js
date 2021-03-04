@@ -31,7 +31,7 @@ module.exports.upload = (req, res, next) => {
         .promise()
         .then(function () {
             next();
-            // fs.unlink(path, () => {}); // for delete (?)
+            fs.unlink(path, () => {}); // for delete (?)
         })
         .catch(function (err) {
             console.log("Error @upload to S3:", err.message);

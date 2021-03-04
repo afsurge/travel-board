@@ -122,7 +122,7 @@ app.get("/get-comments/:id", (req, res) => {
 
 app.get("/delete/:fileInfo", s3.delete, (req, res) => {
     // console.log(req.params);
-    console.log("File deleted! Please confirm with url!");
+    console.log("File deleted? Please confirm with url!");
     const delId = req.params.fileInfo.slice(0, 2);
     const delFile = req.params.fileInfo.slice(3);
     console.log(
