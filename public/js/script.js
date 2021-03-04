@@ -148,6 +148,15 @@ Vue.component("component-image-details", {
         closeDetails: function () {
             this.$emit("close");
         },
+
+        deleteThisImage: function () {
+            // const delFilename = this.url.replace(
+            //     "https://s3.amazonaws.com/spicedling/",
+            //     ""
+            // );
+            // console.log("Want to delete file:", delFilename);
+            this.$emit("delete");
+        },
     },
 });
 
@@ -176,7 +185,7 @@ new Vue({
                 // self.images = response.data.reverse();
                 // reverse() to show last upload at first
                 // use if not ordered in query already (DESC)
-                console.log(self.images);
+                // console.log(self.images);
             })
             .catch(function (err) {
                 console.log("Error from GET req:", err.message);
@@ -239,11 +248,31 @@ new Vue({
             this.imageSelected = null;
         },
 
+        deleteImage: function () {
+            console.log("Want to delete image id:", this.imageSelected);
+            axios
+                .get("/delete/" + this.imageSelected)
+                .then(function (response) {
+                    // console.log(response.data);
+                    const delFilename = response.data.replace(
+                        "https://s3.amazonaws.com/spicedling/",
+                        ""
+                    );
+                    axios.post("/delete", response.data).then(function () {});
+                })
+                .catch(function (err) {
+                    console.log(
+                        "Error getting url of image to delete in script:",
+                        err.message
+                    );
+                });
+        },
+
         getMoreImages: function () {
-            console.log("Give me MORE!");
-            console.log("All images on screen:", this.images);
+            // console.log("Give me MORE!");
+            // console.log("All images on screen:", this.images);
             const lowestId = this.images[this.images.length - 1].id;
-            console.log("ID of last image on screen:", lowestId);
+            // console.log("ID of last image on screen:", lowestId);
             var self = this;
             axios
                 .get("/more/" + lowestId)
@@ -252,7 +281,10 @@ new Vue({
                     var imagesWithMore = self.images.concat(response.data);
                     // can use for-loop for above also
                     self.images = imagesWithMore;
-                    console.log(self.images);
+                    console.log(
+                        "All images on screen after MORE:",
+                        self.images
+                    );
                     if (
                         self.images[self.images.length - 1].id ==
                         response.data[0].lowestId

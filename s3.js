@@ -38,3 +38,8 @@ module.exports.upload = (req, res, next) => {
             res.sendStatus(500);
         });
 };
+
+module.exports.delete = (req, res, next) => {
+    // const { delFilename } = req.body;
+    console.log(req.body);
+};

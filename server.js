@@ -54,8 +54,10 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     const { filename } = req.file;
     const fullUrl = config.s3Url + filename;
     db.addImage(fullUrl, username, title, description)
-        .then(() => {
+        .then(({ rows }) => {
+            // console.log("Uploaded image id:", rows[0].id);
             res.json({
+                id: rows[0].id,
                 title: title,
                 description: description,
                 username: username,
@@ -73,7 +75,7 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 
 app.get("/images/:id", (req, res) => {
     const selectedId = req.params.id;
-    console.log("Selected id received from script:", selectedId);
+    // console.log("Selected id received from script:", selectedId);
     db.getSelImage(selectedId)
         .then(({ rows }) => {
             // console.log(rows);
@@ -108,7 +110,7 @@ app.post("/comment", (req, res) => {
 
 app.get("/get-comments/:id", (req, res) => {
     const imageIdComments = req.params.id;
-    console.log("Request for comments of image id:", imageIdComments);
+    // console.log("Request for comments of image id:", imageIdComments);
     db.getComments(imageIdComments)
         .then(({ rows }) => {
             res.json(rows);
@@ -116,6 +118,22 @@ app.get("/get-comments/:id", (req, res) => {
         .catch((err) => {
             console.log("Error getting comments:", err.message);
         });
+});
+
+app.get("/delete/:id", (req, res) => {
+    const delId = req.params.id;
+    db.getUrl(delId)
+        .then(({ rows }) => {
+            // console.log(rows[0].url);
+            res.json(rows[0].url);
+        })
+        .catch((err) => {
+            console.log("Error getting url of image to delete:", err.message);
+        });
+});
+
+app.post("/delete", (req, res) => {
+    console.log(req.body);
 });
 
 app.listen(8080, () => console.log("🖼️  IB server (port: 8080) online..."));

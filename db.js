@@ -16,6 +16,7 @@ module.exports.addImage = (url, username, title, description) => {
     const q = `
     INSERT INTO images (url, username, title, description)
     VALUES ($1, $2, $3, $4)
+    RETURNING id
     `;
     const params = [url, username, title, description];
     return db.query(q, params);
@@ -74,5 +75,15 @@ module.exports.addComment = (username, comment, image_id) => {
     VALUES ($1, $2, $3)
     `;
     const params = [username, comment, image_id];
+    return db.query(q, params);
+};
+
+module.exports.getUrl = (id) => {
+    const q = `
+    SELECT url
+    FROM images
+    WHERE id = $1
+    `;
+    const params = [id];
     return db.query(q, params);
 };

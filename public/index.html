@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Image Board</title>
+        <title>travel BOARD</title>
         <link rel="stylesheet" href="/styles.css" />
     </head>
     <body>
         <div id="main">
             <div id="titleHead">
-                <h1>Abrar @ImageBoard</h1>
+                <h1>travel BOARD</h1>
             </div>
             <div id="uploadBar">
                 <form id="uploadForm" action="">
@@ -36,7 +36,7 @@
                         accept="image/*"
                     />
                     <button id="uploadButton" @click.prevent="handleClick">
-                        UPLOAD
+                        UPLOAD ⬆️
                     </button>
                 </form>
             </div>
@@ -45,13 +45,14 @@
                 v-if="imageSelected"
                 v-bind:image-id="imageSelected"
                 @close="closeComponent"
+                @delete="deleteImage"
             ></component-image-details>
             <!-- component for showing image details -->
             <div id="container">
                 <!-- @click="selectImage(image.id)" -->
                 <!-- v-bind:key="image.id" -->
                 <div class="allImages" v-for="image in images">
-                    <a id="allImageLinks" v-bind:href="'#' + image.id">
+                    <a class="allImageLinks" v-bind:href="'#' + image.id">
                         <img
                             class="theImage"
                             v-bind:src="image.url"
@@ -70,22 +71,23 @@
                 <div id="overlayImages" @click="closeDetails"></div>
                 <div id="detailsContainer">
                     <div id="imageBody">
-                        <!-- <p id="prevImage" class="navImages"><</p> -->
-                        <a id="prevImage" class="navImages" :href="'#' + prevImgId" v-if="prevImgId"><<</a>
+                        <a id="prevImage" class="navImages" :href="'#' + prevImgId" v-if="prevImgId"><</a>
                         <img id="selectedImage" v-bind:src="url" v-bind:alt="title">
-                        <a id="nextImage" class="navImages" :href="'#' + nextImgId" v-if="nextImgId">>></a>
-                        <!-- <p id="nextImage" class="navImages">></p> -->
+                        <a id="nextImage" class="navImages" :href="'#' + nextImgId" v-if="nextImgId">></a>
                     </div>
                     <div id="detailsBody">
                         <img id="close-details" src="/x-image.png" alt="close details" @click="closeDetails">
-                        <p>TITLE {{title}}</p>
-                        <p>DESCRIPTION {{description}}</p>
-                        <p>UPLOAD BY {{username}}</p>
-                        <p>DATE {{created_at.slice(0,10)}}</p>
-                        <p>TIME {{created_at.slice(11,16)}}</p>
+                        <div id="imageInfo">
+                            <p>TITLE <span>{{title}}</span></p>
+                            <p>DESCRIPTION <span>{{description}}</span></p>
+                            <p>UPLOAD BY <span>{{username}}</span></p>
+                            <p>DATE <span>{{created_at.slice(0,10)}}</span></p>
+                            <p>TIME <span>{{created_at.slice(11,16)}}</span></p>
+                        </div>
                         <!-- component for comments within details component HTML-->
                         <component-comments v-bind:image-id="imageId"></component-comments>
                         <!-- component for comments within details component HTML-->
+                        <button id="deleteImage" @click="deleteThisImage">DELETE</button>
                     </div>
                 </div>
             </div>
@@ -93,14 +95,16 @@
         <script id="commentsTemplate" type="text/x-template">
             <div id="commentsContainer">
                 <div id="addCommentForm">
-                    <p>ADD A COMMENT</p>
-                    <input v-model="username" type="text" name="username" placeholder="name">
-                    <input v-model="comment" type="text" name="comment" placeholder="comment here">
+                    <p>COMMENT ?</p>
+                    <input v-model="username" type="text" name="username" placeholder="your name">
+                    <br>
+                    <input id="commentField" v-model="comment" type="text" name="comment" placeholder="your comment">
+                    <br>
                     <button id="addCommentButton" @click.prevent="addComment">POST</button>
                 </div>
-                <div class="allComments" v-for="comment in comments" id="allComments">
-                    <p>{{comment.username}} commented:</p>
-                    <p>{{comment.comment}}</p>
+                <div class="allComments" v-for="comment in comments">
+                    <p>{{comment.username}} said:</p>
+                    <span><p>{{comment.comment}}</p></span>
                 </div>
             </div>
         </script>
