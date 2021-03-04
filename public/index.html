@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>travel BOARD</title>
+        <title>imageBOARD</title>
         <link rel="stylesheet" href="/styles.css" />
     </head>
     <body>
         <div id="main">
             <div id="titleHead">
-                <h1>travel BOARD</h1>
+                <h1>imageBOARD</h1>
             </div>
             <div id="uploadBar">
                 <form id="uploadForm" action="">
@@ -45,7 +45,6 @@
                 v-if="imageSelected"
                 v-bind:image-id="imageSelected"
                 @close="closeComponent"
-                @delete="deleteImage"
             ></component-image-details>
             <!-- component for showing image details -->
             <div id="container">
@@ -78,8 +77,8 @@
                     <div id="detailsBody">
                         <img id="close-details" src="/x-image.png" alt="close details" @click="closeDetails">
                         <div id="imageInfo">
-                            <p>TITLE <span>{{title}}</span></p>
-                            <p>DESCRIPTION <span>{{description}}</span></p>
+                            <p>TITLE <br><span>{{title}}</span></p>
+                            <p>DESCRIPTION <br><span>{{description}}</span></p>
                             <p>UPLOAD BY <span>{{username}}</span></p>
                             <p>DATE <span>{{created_at.slice(0,10)}}</span></p>
                             <p>TIME <span>{{created_at.slice(11,16)}}</span></p>
@@ -87,7 +86,7 @@
                         <!-- component for comments within details component HTML-->
                         <component-comments v-bind:image-id="imageId"></component-comments>
                         <!-- component for comments within details component HTML-->
-                        <button id="deleteImage" @click="deleteThisImage">DELETE</button>
+                        <button id="deleteImage" @click.prevent="deleteImage">DELETE</button>
                     </div>
                 </div>
             </div>

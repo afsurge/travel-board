@@ -9,7 +9,15 @@ MISC:
     - change topic: travels
     - add new images
     x - design modal and comments
-    - bonus: previous/next, delete, notify users (if possible)
+    - clear input fields after upload
+    - hash with gibberish instead of any id
+    - comments with small timestamp
+    - scrolling images and comments
+    - handle errors
+    - bonus: 
+        x - previous/next
+        - deleteObject
+        - notify users (if possible)
 
 Q: {success: true|false} in json response from server to Vue?
 x Q: ORDER BY query instead of unshift images? -> reverse() response.data before passing to self.image (script /get) -> ORDER BY after checking Part4

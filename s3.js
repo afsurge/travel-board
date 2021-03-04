@@ -40,6 +40,21 @@ module.exports.upload = (req, res, next) => {
 };
 
 module.exports.delete = (req, res, next) => {
-    // const { delFilename } = req.body;
-    console.log(req.body);
+    // console.log("s3:", req.params);
+    const delId = req.params.fileInfo.slice(0, 2);
+    const delFile = req.params.fileInfo.slice(3);
+    console.log("Want to delete file (s3):" + delFile + " with id:" + delId);
+
+    s3.deleteObject({
+        Bucket: "spicedling",
+        Key: delFile,
+    })
+        .promise()
+        .then(function () {
+            next();
+        })
+        .catch(function (err) {
+            console.log("Error @delete to S3:", err.message);
+            res.sendStatus(500);
+        });
 };

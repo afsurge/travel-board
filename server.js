@@ -120,20 +120,14 @@ app.get("/get-comments/:id", (req, res) => {
         });
 });
 
-app.get("/delete/:id", (req, res) => {
-    const delId = req.params.id;
-    db.getUrl(delId)
-        .then(({ rows }) => {
-            // console.log(rows[0].url);
-            res.json(rows[0].url);
-        })
-        .catch((err) => {
-            console.log("Error getting url of image to delete:", err.message);
-        });
-});
-
-app.post("/delete", (req, res) => {
-    console.log(req.body);
+app.get("/delete/:fileInfo", s3.delete, (req, res) => {
+    // console.log(req.params);
+    console.log("File deleted! Please confirm with url!");
+    const delId = req.params.fileInfo.slice(0, 2);
+    const delFile = req.params.fileInfo.slice(3);
+    console.log(
+        "Want to delete file (server):" + delFile + " with id:" + delId
+    );
 });
 
 app.listen(8080, () => console.log("🖼️  IB server (port: 8080) online..."));

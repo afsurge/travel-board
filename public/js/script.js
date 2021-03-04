@@ -149,13 +149,20 @@ Vue.component("component-image-details", {
             this.$emit("close");
         },
 
-        deleteThisImage: function () {
-            // const delFilename = this.url.replace(
-            //     "https://s3.amazonaws.com/spicedling/",
-            //     ""
-            // );
-            // console.log("Want to delete file:", delFilename);
-            this.$emit("delete");
+        deleteImage: function () {
+            const delFilename = this.url.replace(
+                "https://s3.amazonaws.com/spicedling/",
+                ""
+            );
+            console.log("url to delete (script):", this.url);
+            console.log(
+                "Want to delete file (script):" +
+                    delFilename +
+                    " with id:" +
+                    this.imageId
+            );
+            axios.get("/delete/" + [this.imageId, delFilename]);
+            // this.$emit("delete");
         },
     },
 });
@@ -248,25 +255,25 @@ new Vue({
             this.imageSelected = null;
         },
 
-        deleteImage: function () {
-            console.log("Want to delete image id:", this.imageSelected);
-            axios
-                .get("/delete/" + this.imageSelected)
-                .then(function (response) {
-                    // console.log(response.data);
-                    const delFilename = response.data.replace(
-                        "https://s3.amazonaws.com/spicedling/",
-                        ""
-                    );
-                    axios.post("/delete", response.data).then(function () {});
-                })
-                .catch(function (err) {
-                    console.log(
-                        "Error getting url of image to delete in script:",
-                        err.message
-                    );
-                });
-        },
+        // deleteImage: function () {
+        //     console.log("Want to delete image id:", this.imageSelected);
+        //     axios
+        //         .get("/delete/" + this.imageSelected)
+        //         .then(function () {
+        //             // console.log(response.data);
+        //             // const delFilename = response.data.replace(
+        //             //     "https://s3.amazonaws.com/spicedling/",
+        //             //     ""
+        //             // );
+        //             // axios.post("/delete", response.data).then(function () {});
+        //         })
+        //         .catch(function (err) {
+        //             console.log(
+        //                 "Error getting url of image to delete in script:",
+        //                 err.message
+        //             );
+        //         });
+        // },
 
         getMoreImages: function () {
             // console.log("Give me MORE!");
