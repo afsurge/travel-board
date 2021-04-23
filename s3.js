@@ -21,7 +21,7 @@ module.exports.upload = (req, res, next) => {
     const { filename, mimetype, size, path } = req.file;
 
     s3.putObject({
-        Bucket: "spicedling",
+        Bucket: "travel-board",
         ACL: "public-read",
         Key: filename,
         Body: fs.createReadStream(path),
@@ -45,16 +45,16 @@ module.exports.delete = (req, res, next) => {
     const delFile = req.params.fileInfo.slice(3);
     console.log("Want to delete file (s3):" + delFile + " with id:" + delId);
 
-    s3.deleteObject({
-        Bucket: "spicedling",
-        Key: delFile,
-    })
-        .promise()
-        .then(function () {
-            next();
-        })
-        .catch(function (err) {
-            console.log("Error @delete to S3:", err.message);
-            res.sendStatus(500);
-        });
+    // s3.deleteObject({
+    //     Bucket: "travel-board",
+    //     Key: delFile,
+    // })
+    //     .promise()
+    //     .then(function () {
+    //         next();
+    //     })
+    //     .catch(function (err) {
+    //         console.log("Error @delete to S3:", err.message);
+    //         res.sendStatus(500);
+    //     });
 };

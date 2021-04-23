@@ -6,6 +6,7 @@ Part5 Client-side routing/Hash/Watchers: ...
 
 MISC:
     x - change color theme
+    x - update aws with own account
     - change topic: travels
     - add new images
     x - design modal and comments
