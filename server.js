@@ -121,12 +121,17 @@ app.get("/get-comments/:id", (req, res) => {
 });
 
 // app.get("/delete/:fileInfo", s3.delete, (req, res) => {
-app.get("/delete/:fileInfo", (req, res) => {
-    // console.log(req.params);
-    // console.log("File deleted? Please confirm with url!");
-    const delId = req.params.fileInfo.slice(0, 1);
-    // const delFile = req.params.fileInfo.slice(2);
-    console.log("Want to delete file with id (server):" + delId);
+//     console.log(req.params);
+//     console.log("File deleted? Please confirm with url!");
+//     const delId = req.params.fileInfo.slice(0, 1);
+//     const delFile = req.params.fileInfo.slice(2);
+//     console.log("Want to delete file with id (server):" + delId);
+// });
+
+app.post("/delete", (req, res) => {
+    // console.log(req.body);
+    const { filename, id } = req.body;
+    console.log("Want to delete file with id (server):" + id);
 });
 
 app.listen(8080, () => console.log("🖼️  IB server (port: 8080) online..."));

@@ -87,3 +87,21 @@ module.exports.getUrl = (id) => {
     const params = [id];
     return db.query(q, params);
 };
+
+module.exports.delComments = (id) => {
+    const q = `
+    DELETE FROM comments
+    WHERE image_id = $1 
+    `;
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.delImage = (id) => {
+    const q = `
+    DELETE FROM images
+    WHERE id = $1 
+    `;
+    const params = [id];
+    return db.query(q, params);
+};

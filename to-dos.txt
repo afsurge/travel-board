@@ -12,7 +12,7 @@ MISC:
     x - design modal and comments
     x - clear text input fields after upload
     - clear file input field after upload
-    - change delete get -> post route
+    x - change delete get -> post route
     - hash with gibberish instead of any id
     - comments with small timestamp
     - scrolling images and comments

@@ -90,7 +90,7 @@ Vue.component("component-image-details", {
     props: ["imageId"],
 
     mounted: function () {
-        console.log("this.imageId in modal component:", this.imageId);
+        // console.log("this.imageId in modal component:", this.imageId);
         var self = this;
         axios
             .get("/images/" + this.imageId)
@@ -99,7 +99,6 @@ Vue.component("component-image-details", {
                 //     "Response received from server for selected image:",
                 //     response.data[0]
                 // );
-                // console.log(self);
                 self.url = response.data[0].url;
                 self.title = response.data[0].title;
                 self.description = response.data[0].description;
@@ -107,8 +106,6 @@ Vue.component("component-image-details", {
                 self.created_at = response.data[0].created_at;
                 self.nextImgId = response.data[0].nextImgId;
                 self.prevImgId = response.data[0].prevImgId;
-                // console.log("next image id:", response.data[0].nextImgId);
-                // console.log("previous image id:", response.data[0].prevImgId);
             })
             .catch(function (err) {
                 console.log(
@@ -154,15 +151,23 @@ Vue.component("component-image-details", {
                 "https://s3.amazonaws.com/travel-board/",
                 ""
             );
-            console.log("url to delete (script):", this.url);
+            // console.log("url to delete (script):", this.url);
             console.log(
                 "Want to delete file (script):" +
                     delFilename +
                     " with id:" +
                     this.imageId
             );
-            axios.get("/delete/" + [this.imageId, delFilename]);
+            var self = this;
             // this.$emit("delete");
+            axios
+                .post("/delete", { filename: delFilename, id: self.imageId })
+                .then(function () {
+                    console.log("File deleted!");
+                })
+                .catch(function (err) {
+                    console.log("Error deleting image:", err.message);
+                });
         },
     },
 });
@@ -224,10 +229,7 @@ new Vue({
             formData.append("description", this.description);
             formData.append("username", this.username);
             formData.append("file", this.file);
-            // console.log("this.title: ", this.title);
-            // console.log("this.description: ", this.description);
-            // console.log("this.username: ", this.username);
-            // console.log("this.file: ", this.file);
+
             axios
                 .post("/upload", formData)
                 .then(function (response) {
