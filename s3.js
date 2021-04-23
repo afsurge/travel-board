@@ -41,9 +41,9 @@ module.exports.upload = (req, res, next) => {
 
 module.exports.delete = (req, res, next) => {
     // console.log("s3:", req.params);
-    const delId = req.params.fileInfo.slice(0, 2);
-    const delFile = req.params.fileInfo.slice(3);
-    console.log("Want to delete file (s3):" + delFile + " with id:" + delId);
+    // const delId = req.params.fileInfo.slice(0, 1);
+    const delFile = req.params.fileInfo.slice(2);
+    console.log("Want to delete file (s3):" + delFile);
 
     s3.deleteObject({
         Bucket: "travel-board",

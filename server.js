@@ -40,9 +40,9 @@ app.get("/images", (req, res) => {
 });
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
-    console.log("Server POST route hit");
     // console.log("req.file: ", req.file);
     // console.log("req.body: ", req.body);
+
     // insert into images table the uploaded file info
     // title, description, username, fullUrl (aws+filename)
     // aws link included in config.json (s3Url)
@@ -120,14 +120,13 @@ app.get("/get-comments/:id", (req, res) => {
         });
 });
 
-app.get("/delete/:fileInfo", s3.delete, (req, res) => {
+// app.get("/delete/:fileInfo", s3.delete, (req, res) => {
+app.get("/delete/:fileInfo", (req, res) => {
     // console.log(req.params);
-    console.log("File deleted? Please confirm with url!");
-    const delId = req.params.fileInfo.slice(0, 2);
-    const delFile = req.params.fileInfo.slice(3);
-    console.log(
-        "Want to delete file (server):" + delFile + " with id:" + delId
-    );
+    // console.log("File deleted? Please confirm with url!");
+    const delId = req.params.fileInfo.slice(0, 1);
+    // const delFile = req.params.fileInfo.slice(2);
+    console.log("Want to delete file with id (server):" + delId);
 });
 
 app.listen(8080, () => console.log("🖼️  IB server (port: 8080) online..."));

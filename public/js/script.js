@@ -151,7 +151,7 @@ Vue.component("component-image-details", {
 
         deleteImage: function () {
             const delFilename = this.url.replace(
-                "https://s3.amazonaws.com/spicedling/",
+                "https://s3.amazonaws.com/travel-board/",
                 ""
             );
             console.log("url to delete (script):", this.url);
@@ -212,7 +212,7 @@ new Vue({
             this.file = e.target.files[0];
         },
 
-        handleClick: function (e) {
+        handleClick: function () {
             // runs on click of submit/upload button after choosing image to upload
             // handleChange already ran before this
             // FormData API allows image upload via ajax
@@ -236,6 +236,9 @@ new Vue({
                     // add all info to images array inside data to render to client
                     // unshift to add image to beginning of array (newest first)
                     self.images.unshift(response.data);
+                    self.title = "";
+                    self.description = "";
+                    self.username = "";
                 })
                 .catch(function (err) {
                     console.log("Error from POST req:", err.message);
