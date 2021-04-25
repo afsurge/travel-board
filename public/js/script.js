@@ -10,7 +10,6 @@ Vue.component("component-comments", {
     props: ["imageId"],
     mounted: function () {
         console.log("this.imageId in comments component:", this.imageId);
-        // console.log("Testing comments component mount!");
         var self = this;
         axios
             .get("/get-comments/" + this.imageId)
@@ -95,10 +94,6 @@ Vue.component("component-image-details", {
         axios
             .get("/images/" + this.imageId)
             .then(function (response) {
-                // console.log(
-                //     "Response received from server for selected image:",
-                //     response.data[0]
-                // );
                 self.url = response.data[0].url;
                 self.title = response.data[0].title;
                 self.description = response.data[0].description;
@@ -136,7 +131,7 @@ Vue.component("component-image-details", {
                         err.message
                     );
                     // close modal if requested image (id) not present
-                    self.$emit("close");
+                    self.closeDetails();
                 });
         },
     },
@@ -145,6 +140,10 @@ Vue.component("component-image-details", {
         closeDetails: function () {
             this.$emit("close");
         },
+
+        // deleteFromImages: function () {
+        //     this.$emit("delete");
+        // },
 
         deleteImage: function () {
             const delFilename = this.url.replace(
@@ -159,11 +158,11 @@ Vue.component("component-image-details", {
                     this.imageId
             );
             var self = this;
-            // this.$emit("delete");
             axios
                 .post("/delete", { filename: delFilename, id: self.imageId })
                 .then(function () {
                     console.log("File deleted!");
+                    self.closeDetails();
                 })
                 .catch(function (err) {
                     console.log("Error deleting image:", err.message);
@@ -260,24 +259,8 @@ new Vue({
             this.imageSelected = null;
         },
 
-        // deleteImage: function () {
-        //     console.log("Want to delete image id:", this.imageSelected);
-        //     axios
-        //         .get("/delete/" + this.imageSelected)
-        //         .then(function () {
-        //             // console.log(response.data);
-        //             // const delFilename = response.data.replace(
-        //             //     "https://s3.amazonaws.com/spicedling/",
-        //             //     ""
-        //             // );
-        //             // axios.post("/delete", response.data).then(function () {});
-        //         })
-        //         .catch(function (err) {
-        //             console.log(
-        //                 "Error getting url of image to delete in script:",
-        //                 err.message
-        //             );
-        //         });
+        // handleDelete: function (delId) {
+        //     this.images = this.images.filter((image) => image.id != delId);
         // },
 
         getMoreImages: function () {

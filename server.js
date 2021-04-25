@@ -120,18 +120,25 @@ app.get("/get-comments/:id", (req, res) => {
         });
 });
 
-// app.get("/delete/:fileInfo", s3.delete, (req, res) => {
-//     console.log(req.params);
-//     console.log("File deleted? Please confirm with url!");
-//     const delId = req.params.fileInfo.slice(0, 1);
-//     const delFile = req.params.fileInfo.slice(2);
-//     console.log("Want to delete file with id (server):" + delId);
-// });
-
-app.post("/delete", (req, res) => {
+app.post("/delete", s3.delete, (req, res) => {
     // console.log(req.body);
-    const { filename, id } = req.body;
+    const { id } = req.body;
     console.log("Want to delete file with id (server):" + id);
+    db.delComments(id)
+        .then(() => {
+            console.log("Comments deleted successfully!");
+            db.delImage(id)
+                .then(() => {
+                    console.log("Image deleted successfully!");
+                    res.json({ success: true });
+                })
+                .catch((err) => {
+                    console.log("Error deleting image:", err.message);
+                });
+        })
+        .catch((err) => {
+            console.log("Error deleting comments:", err.message);
+        });
 });
 
 app.listen(8080, () => console.log("🖼️  IB server (port: 8080) online..."));

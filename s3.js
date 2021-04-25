@@ -43,7 +43,7 @@ module.exports.delete = (req, res, next) => {
     // console.log("s3:", req.params);
     // const delId = req.params.fileInfo.slice(0, 1);
     // const delFile = req.params.fileInfo.slice(2);
-    const { filename, id } = req.body;
+    const { filename } = req.body;
     console.log("Want to delete file (s3):" + filename);
 
     s3.deleteObject({
