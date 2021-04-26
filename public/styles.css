@@ -181,6 +181,13 @@ body {
 #commentsContainer {
     margin: 5px;
     height: 70vh;
+    /* overflow: auto; */
+}
+
+#allCommentsContainer {
+    margin: 10px 0px;
+    height: 285px;
+    overflow: auto;
 }
 
 #addCommentForm {
@@ -188,17 +195,16 @@ body {
     text-align: center;
     border: 1px solid #201335;
     border-radius: 25px;
-    height: 170px;
+    height: 160px;
     background-color: #201335;
     color: #c5c5c5;
     font-size: 1.1em;
 }
 
-#addCommentForm input,
-button {
+#addCommentForm input {
     margin: 5px;
-    width: 250px;
-    font-size: 1.1em;
+    width: 90%;
+    font-size: 1.05em;
 }
 
 #addCommentForm button {
@@ -207,6 +213,15 @@ button {
     border-radius: 20px;
     color: #201335;
     height: 35px;
+    margin: 5px;
+    width: 40%;
+    font-size: 1.05em;
+}
+
+.commentInfo {
+    font-size: 0.9em;
+    font-style: italic;
+    color: #201335;
 }
 
 span {

@@ -15,8 +15,8 @@ MISC:
     x - change delete get -> post route
     - update images array in main after delete
     - hash with gibberish instead of any id
-    - comments with small timestamp
-    - scrolling images and comments
+    x - comments with small timestamp
+    x - scrolling images and comments
     - handle errors
     - bonus: 
         x - previous/next

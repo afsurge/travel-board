@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>imageBOARD</title>
+        <title>travelBOARD</title>
         <link rel="stylesheet" href="/styles.css" />
     </head>
     <body>
         <div id="main">
             <div id="titleHead">
-                <h1>imageBOARD</h1>
+                <h1>travelBOARD</h1>
             </div>
             <div id="uploadBar">
                 <form id="uploadForm" action="">
@@ -95,15 +95,17 @@
             <div id="commentsContainer">
                 <div id="addCommentForm">
                     <p>COMMENT ?</p>
-                    <input v-model="username" type="text" name="username" placeholder="your name">
+                    <input id="usernameField" v-model="username" type="text" name="username" placeholder="your name">
                     <br>
                     <input id="commentField" v-model="comment" type="text" name="comment" placeholder="your comment">
                     <br>
                     <button id="addCommentButton" @click.prevent="addComment">POST</button>
                 </div>
-                <div class="allComments" v-for="comment in comments">
-                    <p>{{comment.username}} said:</p>
-                    <span><p>{{comment.comment}}</p></span>
+                <div id="allCommentsContainer">
+                    <div class="allComments" v-for="comment in comments">
+                        <p class="commentInfo">{{comment.username}} {{comment.created_at.slice(0,10)}} {{comment.created_at.slice(11,16)}}:</p>
+                        <p>{{comment.comment}}</p>
+                    </div>
                 </div>
             </div>
         </script>
