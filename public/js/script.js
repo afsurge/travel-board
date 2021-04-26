@@ -117,13 +117,17 @@ Vue.component("component-image-details", {
             axios
                 .get("/images/" + this.imageId)
                 .then(function (response) {
-                    self.url = response.data[0].url;
-                    self.title = response.data[0].title;
-                    self.description = response.data[0].description;
-                    self.username = response.data[0].username;
-                    self.created_at = response.data[0].created_at;
-                    self.nextImgId = response.data[0].nextImgId;
-                    self.prevImgId = response.data[0].prevImgId;
+                    if (response.data.success) {
+                        self.closeDetails();
+                    } else {
+                        self.url = response.data[0].url;
+                        self.title = response.data[0].title;
+                        self.description = response.data[0].description;
+                        self.username = response.data[0].username;
+                        self.created_at = response.data[0].created_at;
+                        self.nextImgId = response.data[0].nextImgId;
+                        self.prevImgId = response.data[0].prevImgId;
+                    }
                 })
                 .catch(function (err) {
                     console.log(

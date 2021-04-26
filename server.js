@@ -83,6 +83,7 @@ app.get("/images/:id", (req, res) => {
         })
         .catch((err) => {
             console.log("Error getting selected image details:", err.message);
+            res.json({ success: false });
         });
 });
 

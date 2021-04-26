@@ -2,7 +2,7 @@ Part1 Image Board/Vue.js: Done
 Part2 Image upload/S3: Done
 Part3 Vue components: Done
 Part4 Pagination/Comments: Done
-Part5 Client-side routing/Hash/Watchers: ...
+Part5 Client-side routing/Hash/Watchers: Done
 
 MISC:
     x - change color theme
@@ -14,7 +14,7 @@ MISC:
     - clear file input field after upload
     x - change delete get -> post route
     - update images array in main after delete
-    - hash with gibberish instead of any id
+    x - hash with gibberish instead of any id
     x - comments with small timestamp
     x - scrolling images and comments
     - handle errors
