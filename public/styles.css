@@ -11,11 +11,13 @@ body {
 
 #titleHead {
     display: flex;
-    height: 100px;
+    height: 200px;
     justify-content: center;
     align-items: center;
-    background-color: #201335;
-    color: white;
+    /* background-color: #201335; */
+    color: #201335;
+    /* background-image: url("banner1.jpg");
+    object-fit: scale-down; */
 }
 
 #container {
