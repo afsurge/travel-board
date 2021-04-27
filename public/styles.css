@@ -11,13 +11,14 @@ body {
 
 #titleHead {
     display: flex;
-    height: 200px;
-    justify-content: center;
-    align-items: center;
-    /* background-color: #201335; */
-    color: #201335;
-    /* background-image: url("banner1.jpg");
-    object-fit: scale-down; */
+    height: 220px;
+    justify-content: flex-start;
+    align-items: flex-end;
+    color: #4f4789;
+    background-image: url("banner1.jpg");
+    background-size: cover;
+    font-size: 2em;
+    text-shadow: 3px 3px #201335;
 }
 
 #container {
@@ -56,7 +57,7 @@ body {
     display: flex;
     align-items: center;
     background-color: #4f4789;
-    height: 100px;
+    height: 60px;
     border: 5px solid #201335;
 }
 

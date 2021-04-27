@@ -8,6 +8,7 @@ MISC:
     x - change color theme
     x - update aws with own account
     x - change topic: travels
+    x - update title banner
     - add new images
     x - design modal and comments
     x - clear text input fields after upload
