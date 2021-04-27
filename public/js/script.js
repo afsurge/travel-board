@@ -167,6 +167,7 @@ Vue.component("component-image-details", {
                 .then(function () {
                     console.log("File deleted!");
                     self.closeDetails();
+                    location.replace("/"); // update/refresh for deleted image but neglects single-page flow
                 })
                 .catch(function (err) {
                     console.log("Error deleting image:", err.message);
