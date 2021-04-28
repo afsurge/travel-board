@@ -145,9 +145,9 @@ Vue.component("component-image-details", {
             this.$emit("close");
         },
 
-        // deleteFromImages: function () {
-        //     this.$emit("delete");
-        // },
+        deleteFromImages: function () {
+            this.$emit("delete");
+        },
 
         deleteImage: function () {
             const delFilename = this.url.replace(
@@ -166,8 +166,9 @@ Vue.component("component-image-details", {
                 .post("/delete", { filename: delFilename, id: self.imageId })
                 .then(function () {
                     console.log("File deleted!");
-                    self.closeDetails();
-                    location.replace("/"); // update/refresh for deleted image but neglects single-page flow
+                    self.deleteFromImages();
+                    // self.closeDetails();
+                    // location.replace("/"); // update/refresh for deleted image but neglects single-page flow
                 })
                 .catch(function (err) {
                     console.log("Error deleting image:", err.message);
@@ -201,7 +202,6 @@ new Vue({
                 // self.images = response.data.reverse();
                 // reverse() to show last upload at first
                 // use if not ordered in query already (DESC)
-                // console.log(self.images);
             })
             .catch(function (err) {
                 console.log("Error from GET req:", err.message);
@@ -252,7 +252,6 @@ new Vue({
         },
 
         selectImage: function (id) {
-            // console.log("User selected an image");
             console.log("Image id clicked in main Vue instance:", id);
             this.imageSelected = id;
         },
@@ -264,12 +263,15 @@ new Vue({
             this.imageSelected = null;
         },
 
-        // handleDelete: function (delId) {
-        //     this.images = this.images.filter((image) => image.id != delId);
-        // },
+        handleDelete: function () {
+            // remove deleted image details from images array in main
+            this.images = this.images.filter(
+                (image) => image.id != this.imageSelected
+            );
+            this.closeComponent();
+        },
 
         getMoreImages: function () {
-            // console.log("Give me MORE!");
             // console.log("All images on screen:", this.images);
             const lowestId = this.images[this.images.length - 1].id;
             // console.log("ID of last image on screen:", lowestId);
