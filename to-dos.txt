@@ -18,7 +18,7 @@ MISC:
     x - hash with gibberish instead of any id
     x - comments with small timestamp
     x - scrolling images and comments
-    - handle errors
+    x - handle errors
     - bonus: 
         x - previous/next
         x - deleteObject: s3, image and comments from tables

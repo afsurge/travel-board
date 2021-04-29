@@ -106,8 +106,7 @@
                 </div>  
                 <div id="allCommentsContainer">
                     <div class="allComments" v-for="comment in comments">
-                        <!-- <p class="commentInfo">{{comment.username}} {{comment.created_at.slice(0,10)}} {{comment.created_at.slice(11,16)}}:</p> -->
-                        <p class="commentInfo">{{comment.username}}:</p>
+                        <p class="commentInfo">{{comment.username}}{{comment.created_at ? "|" + comment.created_at.slice(0,10) + " " + comment.created_at.slice(11,16) + "|" : "|just now|"}}</p>
                         <p>{{comment.comment}}</p>
                     </div>
                 </div>

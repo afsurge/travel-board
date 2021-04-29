@@ -5,7 +5,13 @@
 Vue.component("component-comments", {
     template: "#commentsTemplate",
     data: function () {
-        return { comments: [], username: "", comment: "", error: false };
+        return {
+            comments: [],
+            username: "",
+            comment: "",
+            date: new Date(),
+            error: false,
+        };
     },
     props: ["imageId"],
     mounted: function () {
