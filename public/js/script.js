@@ -5,7 +5,7 @@
 Vue.component("component-comments", {
     template: "#commentsTemplate",
     data: function () {
-        return { comments: [], username: "", comment: "" };
+        return { comments: [], username: "", comment: "", error: false };
     },
     props: ["imageId"],
     mounted: function () {
@@ -45,25 +45,33 @@ Vue.component("component-comments", {
 
     methods: {
         addComment: function () {
-            console.log("id of image to add comment:", this.imageId);
-            // console.log("User:", this.username);
-            // console.log("Comment:", this.comment);
-            var self = this;
-            var fullComment = {
-                username: this.username,
-                comment: this.comment,
-                image_id: this.imageId,
-            };
-            axios
-                .post("/comment", fullComment)
-                .then(function (response) {
-                    self.comments.unshift(response.data);
-                    self.username = "";
-                    self.comment = "";
-                })
-                .catch(function (err) {
-                    console.log("Error in getting all comments:", err.message);
-                });
+            if (!this.username || !this.comment) {
+                this.error = true;
+            } else {
+                this.error = false;
+                console.log("id of image to add comment:", this.imageId);
+                // console.log("User:", this.username);
+                // console.log("Comment:", this.comment);
+                var self = this;
+                var fullComment = {
+                    username: this.username,
+                    comment: this.comment,
+                    image_id: this.imageId,
+                };
+                axios
+                    .post("/comment", fullComment)
+                    .then(function (response) {
+                        self.comments.unshift(response.data);
+                        self.username = "";
+                        self.comment = "";
+                    })
+                    .catch(function (err) {
+                        console.log(
+                            "Error in getting all comments:",
+                            err.message
+                        );
+                    });
+            }
         },
     },
 });
@@ -191,6 +199,7 @@ new Vue({
         file: null,
         imageSelected: location.hash.slice(1),
         lastOnScreen: null,
+        error: false,
     },
     mounted: function () {
         var self = this;
@@ -227,28 +236,40 @@ new Vue({
             // FormData API allows image upload via ajax
             // all details of image appended to formData object
             // post request to server /upload with formData
-            var formData = new FormData();
-            var self = this;
-            formData.append("title", this.title);
-            formData.append("description", this.description);
-            formData.append("username", this.username);
-            formData.append("file", this.file);
 
-            axios
-                .post("/upload", formData)
-                .then(function (response) {
-                    console.log("Response from POST req:", response);
-                    // once response(.data) received from post route with uploaded image info
-                    // add all info to images array inside data to render to client
-                    // unshift to add image to beginning of array (newest first)
-                    self.images.unshift(response.data);
-                    self.title = "";
-                    self.description = "";
-                    self.username = "";
-                })
-                .catch(function (err) {
-                    console.log("Error from POST req:", err.message);
-                });
+            if (
+                !this.title ||
+                !this.description ||
+                !this.username ||
+                !this.file
+            ) {
+                this.error = true;
+            } else {
+                this.error = false;
+                var formData = new FormData();
+                var self = this;
+                formData.append("title", this.title);
+                formData.append("description", this.description);
+                formData.append("username", this.username);
+                formData.append("file", this.file);
+
+                axios
+                    .post("/upload", formData)
+                    .then(function (response) {
+                        console.log("Response from POST req:", response);
+                        // once response(.data) received from post route with uploaded image info
+                        // add all info to images array inside data to render to client
+                        // unshift to add image to beginning of array (newest first)
+                        self.images.unshift(response.data);
+                        self.title = "";
+                        self.description = "";
+                        self.username = "";
+                        self.file = null;
+                    })
+                    .catch(function (err) {
+                        console.log("Error from POST req:", err.message);
+                    });
+            }
         },
 
         selectImage: function (id) {

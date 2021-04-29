@@ -9,6 +9,7 @@
             <div id="titleHead">
                 <h1>travelBOARD</h1>
             </div>
+            <p id="uploadErrMsg" v-if="error">ERROR: Please provide all information below!</p>
             <div id="uploadBar">
                 <form id="uploadForm" action="">
                     <input
@@ -100,11 +101,13 @@
                     <br>
                     <input id="commentField" v-model="comment" type="text" name="comment" placeholder="your comment">
                     <br>
+                    <p v-if="error">ERROR: Please provide both name and comment above!</p>
                     <button id="addCommentButton" @click.prevent="addComment">POST</button>
-                </div>
+                </div>  
                 <div id="allCommentsContainer">
                     <div class="allComments" v-for="comment in comments">
-                        <p class="commentInfo">{{comment.username}} {{comment.created_at.slice(0,10)}} {{comment.created_at.slice(11,16)}}:</p>
+                        <!-- <p class="commentInfo">{{comment.username}} {{comment.created_at.slice(0,10)}} {{comment.created_at.slice(11,16)}}:</p> -->
+                        <p class="commentInfo">{{comment.username}}:</p>
                         <p>{{comment.comment}}</p>
                     </div>
                 </div>
