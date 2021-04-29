@@ -259,3 +259,9 @@ span {
     color: red;
     padding: 4px;
 }
+
+#commentErrMsg {
+    /* text-align: center; */
+    font-size: 0.8em;
+    color: red;
+}

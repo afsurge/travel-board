@@ -101,7 +101,7 @@
                     <br>
                     <input id="commentField" v-model="comment" type="text" name="comment" placeholder="your comment">
                     <br>
-                    <p v-if="error">ERROR: Please provide both name and comment above!</p>
+                    <p id="commentErrMsg" v-if="error">ERROR: Please provide both name and comment above!</p>
                     <button id="addCommentButton" @click.prevent="addComment">POST</button>
                 </div>  
                 <div id="allCommentsContainer">
