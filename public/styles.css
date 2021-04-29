@@ -241,16 +241,6 @@ span {
     font-size: 1.1em;
 }
 
-#deleteImage {
-    font-size: 1.2em;
-    margin: 0 auto;
-    width: 90%;
-    border: 3px solid red;
-    border-radius: 20px;
-    color: red;
-    background-color: #201335;
-}
-
 #uploadErrMsg {
     text-align: center;
     font-weight: bold;
@@ -260,7 +250,35 @@ span {
 }
 
 #commentErrMsg {
-    /* text-align: center; */
     font-size: 0.8em;
     color: red;
+}
+
+#delete-icon {
+    width: 25px;
+}
+
+#delete-bar {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#delete-bar * {
+    margin: 0px 5px;
+}
+
+#delete-button,
+#keep-button {
+    width: 100px;
+    font-weight: bold;
+    border: 3px solid #201335;
+    border-radius: 20px;
+}
+
+#delete-button {
+    background-color: red;
+}
+
+#keep-button {
+    background-color: green;
 }

@@ -97,6 +97,7 @@ Vue.component("component-image-details", {
             created_at: "",
             nextImgId: "",
             prevImgId: "",
+            showDelete: false,
         };
     },
 
@@ -157,6 +158,10 @@ Vue.component("component-image-details", {
     methods: {
         closeDetails: function () {
             this.$emit("close");
+        },
+
+        deleteConfirm: function () {
+            this.showDelete = !this.showDelete;
         },
 
         deleteFromImages: function () {

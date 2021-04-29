@@ -88,7 +88,11 @@
                         <!-- component for comments within details component HTML-->
                         <component-comments v-bind:image-id="imageId"></component-comments>
                         <!-- component for comments within details component HTML-->
-                        <button id="deleteImage" @click.prevent="deleteImage">DELETE</button>
+                        <div id="delete-bar">
+                            <button id="delete-button" v-if="showDelete" @click.prevent="deleteImage">DELETE</button>
+                            <button id="keep-button" v-if="showDelete" @click="deleteConfirm">KEEP</button>
+                            <img id="delete-icon" src="/delete.png" alt="close details" @click="deleteConfirm">
+                        </div>
                     </div>
                 </div>
             </div>

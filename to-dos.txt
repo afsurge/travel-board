@@ -19,6 +19,7 @@ MISC:
     x - comments with small timestamp
     x - scrolling images and comments
     x - handle errors
+    x - add delete icon and confirm buttons
     - bonus: 
         x - previous/next
         x - deleteObject: s3, image and comments from tables
