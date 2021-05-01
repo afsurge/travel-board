@@ -19,48 +19,6 @@ CREATE TABLE comments(
 );
 
 INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/travel-board/Karlsruhe-2017.jpg',
-    'Abrar',
-    'Karlsruhe',
-    'First home in Germany since 2012.'
-);
-
-INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/travel-board/Heidelberg-2017.jpg',
-    'Abrar',
-    'Heidelberg',
-    'Close from home. Visited in 2017.'
-);
-
-INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/travel-board/Zurich-2017.jpg',
-    'Abrar',
-    'Zurich',
-    'First trip with wife. Conference plus sight-seeing in 2017.'
-);
-
-INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/travel-board/Munich-2017.jpg',
-    'Abrar',
-    'Munich',
-    'First German big city visit in 2017.'
-);
-
-INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/travel-board/Neuschwanstein-2017.jpg',
-    'Abrar',
-    'Neuschwanstein Castle',
-    'Disney castle visit from Munich in 2017.'
-);
-
-INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/travel-board/Vienna-2017.jpg',
-    'Abrar',
-    'Vienna',
-    'First festival with in-laws in Europe in 2017.'
-);
-
-INSERT INTO images (url, username, title, description) VALUES (
     'https://s3.amazonaws.com/imageboard/jAVZmnxnZ-U95ap2-PLliFFF7TO0KqZm.jpg',
     'funkychicken',
     'Welcome to Spiced and the Future!',
