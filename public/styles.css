@@ -54,8 +54,6 @@ body {
 }
 
 #uploadBar {
-    /* display: flex; */
-    /* align-items: center; */
     background-color: #4f4789;
     height: 60px;
     border: 5px solid #201335;
@@ -104,7 +102,6 @@ body {
 }
 
 #detailsBody p {
-    /* font-size: 0.9em; */
     margin: 5px;
 }
 
@@ -183,7 +180,6 @@ body {
 
 #commentsContainer {
     margin: 5px;
-    /* height: 70vh; */
 }
 
 #allCommentsContainer {
@@ -282,4 +278,16 @@ span {
 
 #keep-button {
     background-color: green;
+}
+
+#img-description-input {
+    width: 300px;
+}
+
+#img-user-input {
+    width: 150px;
+}
+
+#img-file-input {
+    width: 300px;
 }
