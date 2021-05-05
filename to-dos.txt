@@ -5,6 +5,7 @@ Part4 Pagination/Comments: Done
 Part5 Client-side routing/Hash/Watchers: Done
 
 MISC:
+    - clear file input field after upload
     x - change color theme
     x - update aws with own account
     x - change topic: travels
@@ -12,7 +13,6 @@ MISC:
     x - add new images
     x - design modal and comments
     x - clear text input fields after upload
-    - clear file input field after upload
     x - change delete get -> post route
     x - update images array in main after delete
     x - hash with gibberish instead of any id
@@ -20,7 +20,7 @@ MISC:
     x - scrolling images and comments
     x - handle errors
     x - add delete icon and confirm buttons
-    - take screenshots
+    x - take screenshots
     - bonus: 
         x - previous/next
         x - deleteObject: s3, image and comments from tables
