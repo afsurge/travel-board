@@ -1,3 +1,6 @@
 node_modules
 .DS_Store
 secrets.json
+server-pete.js
+to-dos.txt
+david_imageboard_part2.txt
