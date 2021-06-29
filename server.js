@@ -55,7 +55,7 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     const fullUrl = config.s3Url + filename;
     db.addImage(fullUrl, username, title, description)
         .then(({ rows }) => {
-            // console.log("Uploaded image id:", rows[0].id);
+            console.log("Uploaded image id:", rows[0].id);
             res.json({
                 id: rows[0].id,
                 title: title,
