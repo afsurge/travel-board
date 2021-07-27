@@ -109,7 +109,7 @@ Vue.component("component-image-details", {
         var self = this;
         axios
             .get("/images/" + this.imageId)
-            .then(function ({ response }) {
+            .then(function (response) {
                 self.url = response.data[0].url;
                 self.title = response.data[0].title;
                 self.description = response.data[0].description;
