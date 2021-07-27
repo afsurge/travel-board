@@ -16,6 +16,7 @@ Vue.component("component-comments", {
     props: ["imageId"],
     mounted: function () {
         console.log("this.imageId in comments component:", this.imageId);
+        // below axios repeated in "watch" -> use single method e.g. getComments
         var self = this;
         axios
             .get("/get-comments/" + this.imageId)
@@ -108,7 +109,7 @@ Vue.component("component-image-details", {
         var self = this;
         axios
             .get("/images/" + this.imageId)
-            .then(function (response) {
+            .then(function ({ response }) {
                 self.url = response.data[0].url;
                 self.title = response.data[0].title;
                 self.description = response.data[0].description;
@@ -186,7 +187,6 @@ Vue.component("component-image-details", {
                 .then(function () {
                     console.log("File deleted!");
                     self.deleteFromImages();
-                    // self.closeDetails();
                     // location.replace("/"); // update/refresh for deleted image but neglects single-page flow
                 })
                 .catch(function (err) {
@@ -227,6 +227,12 @@ new Vue({
                 console.log("Error from GET req:", err.message);
             });
 
+        // Event listener to handle event "hashchange"
+        // href of <a> tag of any image on main Vue sends to e.g. .../#2 where 2 = image id
+        // clicking on any image (<a>) triggers hashchange event
+        // event sets imageSelected prop of main to id of clicked image
+        // details component renders when imageSelected in main is truthy (v-if)
+        // imageSelected (image id) also passed as prop to details component (v-bind:image-id)
         window.addEventListener("hashchange", function () {
             self.imageSelected = location.hash.slice(1);
         });
@@ -283,10 +289,10 @@ new Vue({
             }
         },
 
-        selectImage: function (id) {
-            console.log("Image id clicked in main Vue instance:", id);
-            this.imageSelected = id;
-        },
+        // selectImage: function (id) {
+        //     console.log("Image id clicked in main Vue instance:", id);
+        //     this.imageSelected = id;
+        // },
 
         closeComponent: function () {
             // below hash added to return to start page
